@@ -35,10 +35,6 @@ angular
               templateUrl: 'views/main.html',
               controller: 'SyncCtrl'
             })
-            .when('/about', {
-              templateUrl: 'views/about.html',
-              controller: 'AboutCtrl'
-            })
             .otherwise({
               redirectTo: '/'
             });
