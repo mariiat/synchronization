@@ -1,0 +1,20 @@
+.bordered {
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+}
+
+.text-title {
+  font-weight: 700;
+}
+
+.padded-row {
+  padding: $base-grid-step * 2 0;
+}
+
+.no-padded {
+  padding: 0;
+}
+
+.custom-right-border {
+  border-right: $border-width solid $border-color;
+}

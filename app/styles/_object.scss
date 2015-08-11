@@ -1,0 +1,20 @@
+.table {
+  display: table;
+
+  .table-row {
+    display: table-row;
+
+    &.even {
+      background-color: $table-grey;
+    }
+
+    .table-cell {
+      display: table-cell;
+      padding: $base-grid-step;
+    }
+
+    &.table-header {
+      background-color: $sync-grey;
+    }
+  }
+}

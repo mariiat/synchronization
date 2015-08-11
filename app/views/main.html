@@ -1,0 +1,125 @@
+<div class="syncronization" ng-controller="SyncCtrl as vm">
+  <h4 class="title text-title">Synchronization</h4>
+  <div class="row padded-row">
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+      <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Last Synchronization:</div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <span ng-if="vm.syncDate">{{ vm.syncDate | date: 'd MMM, y HH:mm' }}</span>
+          <span ng-if="!vm.syncDate" class="text-muted">N/A.
+            <button class="btn btn-primary" ng-click="vm.syncNow()">Sync now</button> to get data.
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 no-padded" ng-if="vm.syncDate">
+          <button class="btn btn-primary" ng-click="vm.syncNow()">Sync now</button>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 no-padded">
+          <img src="/images/progressbar.gif" alt="Loading.." height="15" ng-if="vm.showProgress">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-if="vm.isJournalAvailable === true">
+    <div class="row">
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+        <div class="row">
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Sync Mode:</div>
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+            <select ng-options="mode.name for mode in vm.syncModes track by mode.value" ng-model="vm.syncMode"></select>
+          </div>
+        </div>
+      </div>
+      <div ng-if="vm.syncMode.value === 'SCHEDULED'"
+           ng-controller="ScheduleCtrl as scheduleVm"
+           class="col-lg-6 col-md-6 col-sm-6 col-xs-6 schedule bordered">
+        <h5 class="text-title">Schedule</h5>
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 frequency custom-right-border">
+            <span ng-repeat="option in scheduleVm.scheduleOptionsPrimary track by option.value"
+               class="check-list-item">
+              <label>
+                <input type="radio" name="frequency" value="{{option.value}}" ng-model="scheduleVm.scheduleOptionPrimary">
+                <span>{{option.name}}</span>
+              </label>
+            </span><br>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 frequency-details">
+            Every
+            <input type="number">
+            week each
+            <div class="check-list">
+            <span class="check-list-item">
+              <label ng-repeat="option in scheduleVm.scheduleOptionsSecondary track by option.value">
+                <input type="checkbox" ng-model="option.value">
+                <span>{{option.name}}</span>
+              </label>
+            </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row padded-row">
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+        <h5 class="text-title">Sync Journal</h5>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <h5 class="text-title"
+            ng-if="vm.isDetailsVisible === true">Sync Details ({{ vm.detailsDate | date: 'dd.MM.yyyy' }})</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 custom-right-border">
+        <div class="table sync-journal">
+          <div class="table-row table-header">
+            <div class="table-cell text-title">Date</div>
+            <div class="table-cell text-title">State</div>
+            <div class="table-cell text-title">Conflict</div>
+            <div class="table-cell text-title">Synched elements</div>
+          </div>
+          <div class="table-row"
+               ng-repeat="line in vm.journalData | orderBy: '-date' track by line.date"
+               ng-click="vm.getLineDetails(line)"
+               ng-class="{ even: $index%2 === 0, selected: line.date === vm.detailsDate}">
+            <div class="table-cell">{{ line.date | date: 'dd.MM.yyyy' }}</div>
+            <div class="table-cell">{{ line.status | lowercase }}</div>
+            <div class="table-cell">{{ line.conflicts || 'none' }}</div>
+            <div class="table-cell">{{ line.elements }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="panel-group"
+             id="accordion"
+             ng-if="vm.isDetailsVisible === true">
+          <div class="panel panel-default"
+               ng-repeat="(type, typeData) in vm.lineDetails">
+            <div class="panel-heading">
+              <p class="panel-title text-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#{{type}}" onclick="return false;">
+                  {{ type }} (#{{ typeData.count}})
+                </a>
+              </p>
+            </div>
+            <div id="{{type}}" class="panel-collapse collapse"
+                    ng-class="{in: $first}">
+              <div class="panel-body">
+                <p ng-repeat="id in typeData.data">ID: {{ id }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ng-if="!vm.isDetailsVisible">
+          <span class="glyphicon glyphicon-circle-arrow-left text-muted" aria-hidden="true"></span>
+          <span class="text-muted">
+            Click the row on the left to get details.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

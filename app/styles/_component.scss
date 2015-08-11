@@ -1,0 +1,35 @@
+.schedule {
+
+  padding-top: $base-grid-step * 2;
+  padding-bottom: $base-grid-step * 2;
+
+  .frequency-details {
+    .check-list {
+      padding-top: $base-grid-step * 2;
+    }
+  }
+}
+
+.check-list-item {
+  label {
+    margin-right: $base-grid-step * 3;
+
+    span {
+      margin-left: $base-grid-step;
+      font-weight: normal;
+    }
+  }
+}
+
+.sync-journal {
+  .table-row {
+
+    &:not(.table-header) {
+      cursor: pointer;
+    }
+
+    &.selected {
+      background-color: $table-highlight;
+    }
+  }
+}

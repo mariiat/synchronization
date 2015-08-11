@@ -1,0 +1,14 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+@import "_setting";
+@import "_tool";
+@import "_generics";
+@import "_base";
+@import "_object";
+@import "_component";
+@import "_trump";
+
+
