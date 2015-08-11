@@ -8,8 +8,6 @@
         .module('syncronizationApp')
         .controller('ScheduleCtrl', ScheduleCtrl);
 
-   // ScheduleCtrl.$inject = ['$timeout', 'ScheduleService'];
-
     /*@ngInject*/
 
     function ScheduleCtrl($timeout, ScheduleService) {

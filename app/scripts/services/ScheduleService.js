@@ -8,7 +8,6 @@
         .module('syncronizationApp')
         .service('ScheduleService', ScheduleService);
 
-   // ScheduleService.$inject = ['$timeout'];
     /*@ngInject*/
     function ScheduleService($timeout) {
         var Service = {};

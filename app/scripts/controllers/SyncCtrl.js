@@ -8,8 +8,6 @@
         .module('syncronizationApp')
         .controller('SyncCtrl', SyncCtrl);
 
-    //SyncCtrl.$inject = ['$timeout', 'SyncService'];
-
     /*@ngInject*/
 
     function SyncCtrl($timeout, SyncService) {

@@ -8,7 +8,6 @@
         .module('syncronizationApp')
         .service('SyncService', SyncService);
 
-   // SyncService.$inject = ['$http'];
     /*@ngInject*/
     function SyncService($http) {
         var Service = {};
